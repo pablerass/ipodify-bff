@@ -6,6 +6,7 @@ import urllib
 
 from flask import Flask, request, redirect, session
 from flask_session import Session
+from flask_cors import CORS
 
 
 SESSION_SECRET_KEY = os.getenv('SESSION_SECRET_KEY')
@@ -37,6 +38,8 @@ app.secret_key = SESSION_SECRET_KEY
 app.config['SESSION_TYPE'] = 'filesystem'
 s = Session()
 s.init_app(app)
+# TODO: Narrow cors configuration
+CORS(app, supports_credentials=True)
 
 
 @app.route('/login')
@@ -59,7 +62,8 @@ def callback():
     session['token_type'] = r.json()['token_type']
     session['expires_in'] = r.json()['expires_in']
     session['refresh_token'] = r.json()['refresh_token']
-    return ""
+    # TODO: This seems strange, this should be directly placed in redirect_url
+    return redirect('http://localhost:3000')
 
 
 @app.route('/', defaults={'path': ''}, methods=HTTP_METHODS)

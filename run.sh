@@ -2,7 +2,7 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-export FLASK_APP=ipodify-bff.app:app
+export FLASK_APP=ipodify_bff.app:app
 export FLASK_ENV=development
 source $DIR/env
 
