@@ -4,7 +4,7 @@ import os
 import requests
 import urllib
 
-from flask import Flask, request, redirect, session
+from flask import Flask, request, redirect, session, make_response
 from flask_session import Session
 from flask_cors import CORS
 
@@ -46,6 +46,14 @@ CORS(app, supports_credentials=True)
 def login():
     """Redirect to Spotify authorize page."""
     return redirect(SPOTIFY_AUTHORIZE_URL)
+
+@app.route('/logout')
+def logout():
+    """Redirect to Spotify authorize page."""
+    session.clear()
+    response = make_response(redirect('http://localhost:3000'))
+    response.set_cookie(app.session_cookie_name, '', expires=0)
+    return response
 
 
 @app.route('/callback')
