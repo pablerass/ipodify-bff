@@ -47,6 +47,7 @@ def login():
     """Redirect to Spotify authorize page."""
     return redirect(SPOTIFY_AUTHORIZE_URL)
 
+
 @app.route('/logout')
 def logout():
     """Redirect to Spotify authorize page."""
